@@ -21,7 +21,7 @@ Os arquivos usam o endereço provisório `https://SEU-SITE.exemplo.br` (no cart�
 - Gere um QR code do endereço (por exemplo, em um gerador gratuito) e coloque no slide 24 da apresentação para adultos.
 
 ## Conferir antes de divulgar
-- **Logos institucionais:** verifique com as instituições se há norma ou autorização para usar os logos em um site de projeto pessoal ou de pesquisa. O site já explica que os logos indicam vínculos do autor.
+- **Logos institucionais:** verifique com as instituições se há norma ou autorização para usar os logos em um site de projeto pessoal ou de pesquisa. O site já explica que os logos indicam os vínculos da equipe com a UFGD e suas atividades de pesquisa.
 - **Licença:** o texto atual diz que o licenciamento está em definição. Atualize quando o NIT responder.
 - **Evento:** o programa do Seminário RRD 2026 não pôde ser lido na hora de montar o material; assumi 90 minutos. Ajuste `oficina.html` e os slides ao programa oficial.
 - **Ética:** se os dados da oficina forem usados em pesquisa, é preciso aprovação em Comitê de Ética. O aviso ao participante é um modelo e deve seguir o modelo do CEP.
