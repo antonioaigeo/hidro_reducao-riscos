@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Painel de edição | HIDRO</title>
+<link rel="icon" type="image/png" href="../assets/img/favicon.png">
+<link rel="stylesheet" href="painel.css">
+</head>
+<body>
+<header class="bar">
+  <img src="../assets/img/logo-hidro-escuro.png" alt="HIDRO" height="34">
+  <strong>Painel de edição</strong>
+  <span id="status" class="status" role="status" aria-live="polite"></span>
+  <span class="spacer"></span>
+  <button id="btn-ajuda" class="btn ghost" type="button">Ajuda</button>
+  <button id="btn-sair" class="btn ghost" type="button" hidden>Sair</button>
+</header>
+
+<!-- ============ LOGIN ============ -->
+<section id="tela-login" class="wrap-login">
+  <div class="box">
+    <h1>Entrar no painel</h1>
+    <p>Este painel edita o site publicado no GitHub. Só quem tem a <strong>chave de acesso</strong> (token) do repositório consegue salvar alterações. Se você não é o responsável pelo site, não há nada a fazer aqui.</p>
+    <form id="form-login" autocomplete="off">
+      <label>Repositório do site (usuário/nome)
+        <input id="in-repo" type="text" placeholder="seu-usuario/hidro-site" required spellcheck="false">
+      </label>
+      <label>Ramo (branch)
+        <input id="in-branch" type="text" value="main" required spellcheck="false">
+      </label>
+      <label>Chave de acesso (token do GitHub)
+        <input id="in-token" type="password" placeholder="github_pat_..." required spellcheck="false">
+      </label>
+      <label class="check"><input id="in-lembrar" type="checkbox"> Lembrar neste computador (não marque em computador compartilhado)</label>
+      <button class="btn primary" type="submit">Entrar</button>
+      <p id="erro-login" class="erro" role="alert" hidden></p>
+    </form>
+    <p class="nota">Não sabe como criar a chave? Abra <strong>Ajuda</strong> e siga o passo a passo. A chave fica só neste navegador e nunca é enviada a ninguém, exceto ao GitHub.</p>
+  </div>
+</section>
+
+<!-- ============ EDITOR ============ -->
+<section id="tela-editor" hidden>
+  <aside class="lateral" aria-label="Páginas">
+    <h2>Páginas</h2>
+    <ul id="lista-paginas"></ul>
+    <h2>Arquivos</h2>
+    <ul><li><button id="btn-arquivos" class="pg" type="button">Materiais para baixar</button></li></ul>
+    <p class="nota-lat">Menu, cabeçalho e rodapé são compartilhados por todas as páginas e não são editados aqui.</p>
+  </aside>
+  <div class="palco">
+    <div id="painel-pagina">
+      <div class="toolbar" id="toolbar" role="toolbar" aria-label="Ferramentas de edição">
+        <button class="tb" data-cmd="bold" type="button" title="Negrito"><b>N</b></button>
+        <button class="tb" data-cmd="italic" type="button" title="Itálico"><i>I</i></button>
+        <button class="tb" id="tb-link" type="button" title="Criar ou editar link">Link</button>
+        <button class="tb" id="tb-img" type="button" title="Trocar a imagem selecionada">Trocar imagem</button>
+        <span class="sep"></span>
+        <button class="tb" id="tb-dup" type="button" title="Duplicar o bloco selecionado (cartão, item de lista, linha de tabela...)">Duplicar bloco</button>
+        <button class="tb" id="tb-del" type="button" title="Excluir o bloco selecionado">Excluir bloco</button>
+        <button class="tb" id="tb-up" type="button" title="Selecionar o bloco maior que contém este">Bloco maior</button>
+        <span class="sep"></span>
+        <button class="tb" data-cmd="undo" type="button" title="Desfazer digitação">Desfazer</button>
+        <span class="spacer"></span>
+        <span id="sel-info" class="sel-info"></span>
+        <button id="btn-salvar" class="btn primary" type="button" disabled>Salvar e publicar</button>
+      </div>
+      <p class="dica">Clique em um texto para editar. Clique em uma imagem e em <em>Trocar imagem</em>. Para adicionar um item, clique nele, use <em>Duplicar bloco</em> e edite a cópia.</p>
+      <iframe id="quadro" title="Página em edição"></iframe>
+    </div>
+    <div id="painel-arquivos" hidden>
+      <h2>Materiais para baixar</h2>
+      <p>Arquivos da pasta <code>materiais/</code>. Para <strong>substituir</strong>, envie um arquivo com o mesmo nome. Para <strong>adicionar</strong>, envie um novo e depois, na página Materiais, duplique um cartão e edite o link para <code>materiais/nome-do-arquivo</code>.</p>
+      <div class="up-novo"><label class="btn primary">Enviar novo arquivo<input id="in-novo-arq" type="file" hidden></label></div>
+      <table class="tab-arq"><thead><tr><th>Arquivo</th><th>Tamanho</th><th></th></tr></thead><tbody id="tbody-arq"></tbody></table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AJUDA ============ -->
+<dialog id="dlg-ajuda">
+  <h2>Ajuda</h2>
+  <h3>Como criar a chave de acesso (uma vez)</h3>
+  <ol>
+    <li>Entre no GitHub, clique na sua foto e em <strong>Settings</strong>.</li>
+    <li>No fim do menu, abra <strong>Developer settings &gt; Personal access tokens &gt; Fine-grained tokens</strong> e clique em <strong>Generate new token</strong>.</li>
+    <li>Dê um nome (por exemplo, "Painel HIDRO") e escolha a validade (90 dias é uma boa escolha).</li>
+    <li>Em <strong>Repository access</strong>, escolha <strong>Only select repositories</strong> e marque só o repositório do site.</li>
+    <li>Em <strong>Permissions &gt; Repository permissions</strong>, ponha <strong>Contents: Read and write</strong> (e deixe o restante como está).</li>
+    <li>Clique em <strong>Generate token</strong> e copie o texto que começa com <code>github_pat_</code>. Ele só aparece uma vez.</li>
+  </ol>
+  <h3>Como editar</h3>
+  <ul>
+    <li>Escolha a página na lista à esquerda e clique nos textos para corrigi-los.</li>
+    <li><strong>Enter</strong> dentro de um texto insere uma quebra de linha. Para criar um novo parágrafo ou item, use <strong>Duplicar bloco</strong>.</li>
+    <li>Para trocar uma imagem: clique nela (aparece um contorno vermelho) e em <strong>Trocar imagem</strong>.</li>
+    <li>Para mudar o endereço de um botão ou link: clique no texto dele e em <strong>Link</strong>.</li>
+    <li>Ao terminar, clique em <strong>Salvar e publicar</strong>. O site atualiza em 1 a 2 minutos.</li>
+  </ul>
+  <h3>Se algo der errado</h3>
+  <p>Todas as versões ficam guardadas no GitHub (aba <strong>Commits</strong> do repositório). Dá para voltar a qualquer versão anterior.</p>
+  <h3>O que o painel não faz</h3>
+  <ul>
+    <li>Não muda o menu, o cabeçalho e o rodapé (são iguais em todas as páginas).</li>
+    <li>Não cria páginas novas nem muda o layout.</li>
+    <li>Não atualiza os arquivos Word e PDF: eles são arquivos separados (aba <strong>Arquivos</strong>).</li>
+  </ul>
+  <form method="dialog"><button class="btn primary">Fechar</button></form>
+</dialog>
+
+<script src="painel.js"></script>
+</body>
+</html>
