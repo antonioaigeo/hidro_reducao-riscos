@@ -76,7 +76,7 @@ li { margin-bottom: .35em; }
 .hero h1 em { font-style: normal; color: var(--gold); }
 .hero .lead { font-size: 1.12rem; color: var(--skyLight); max-width: 34em; }
 .hero-art { position: relative; text-align: center; }
-.hero-art .scene { width: 100%; border-radius: 18px; box-shadow: 0 0 0 4px var(--navy3), 0 14px 40px rgba(0,0,0,.45); display: block; }
+.hero-art .scene { width: 100%; height: auto; border-radius: 26px; box-shadow: 0 0 0 4px var(--navy3), 0 0 70px rgba(66,194,245,.20), 0 18px 44px rgba(0,0,0,.5); display: block; }
 .hero-art .mascot { position: absolute; left: 50%; bottom: -14px; width: 132px; transform: translateX(-50%); animation: bob 1.8s ease-in-out infinite; filter: drop-shadow(0 8px 0 rgba(0,0,0,.25)); }
 @keyframes bob { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-8px); } }
 .hero .ground { height: 40px; background: url("../img/tile_sidewalk.png") repeat-x; background-size: 40px 40px; image-rendering: pixelated; position: relative; border-top: 4px solid var(--goldDark); }
